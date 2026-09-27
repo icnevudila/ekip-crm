@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dxajmnnogcyyiexutret.supabase.co",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

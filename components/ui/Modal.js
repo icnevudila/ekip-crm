@@ -1,0 +1,33 @@
+"use client";
+
+import { useEffect } from "react";
+import { X } from "lucide-react";
+
+export default function Modal({ title, onClose, children, wide = false }) {
+  useEffect(() => {
+    function onKey(event) {
+      if (event.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4">
+      <button type="button" className="absolute inset-0 bg-ink/40" aria-label="Kapat" onClick={onClose} />
+      <div
+        className={`relative flex max-h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-xl sm:max-h-[92dvh] sm:rounded-2xl ${
+          wide ? "sm:max-w-3xl" : "sm:max-w-lg"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-line px-4 py-3 sm:px-5">
+          <h2 className="text-base font-semibold">{title}</h2>
+          <button type="button" onClick={onClose} className="grid h-10 w-10 place-items-center rounded-xl hover:bg-zinc-100" aria-label="Kapat">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="overflow-y-auto px-4 py-4 sm:px-5">{children}</div>
+      </div>
+    </div>
+  );
+}
